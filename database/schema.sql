@@ -8,7 +8,7 @@ CREATE TABLE donor (
     phone VARCHAR(20),
     latitude DECIMAL(9,6),
     longitude DECIMAL(9,6),
-    available BOOLEAN DEFAULT TRUE,
+    available BOOLEAN NOT NULL DEFAULT TRUE,
     last_donation_date DATE
 );
 
