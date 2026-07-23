@@ -40,4 +40,4 @@ CREATE TABLE donation (
     donor_id INTEGER REFERENCES donor(id),
     accepted_at TIMESTAMP DEFAULT NOW(),
     completed BOOLEAN DEFAULT FALSE
-)
+);
