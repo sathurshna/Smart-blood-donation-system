@@ -1,4 +1,5 @@
 require('dotenv').config();
+const authRoutes = require('./routes/auth.routes');
 const pool = require('./config/db');
 const express = require('express'); //loads the Express library so we can use it
 const app = express();
@@ -25,13 +26,10 @@ routes just map a URL to a function — no logic, purely "traffic direction"
 controllers handle the HTTP details — reading req.body, sending res.json(...)
 services contain the actual logic (hash a password, check credentials, generate a token) — written so they don't know or care about HTTP at all, which means you could reuse this logic elsewhere (e.g., a CLI script) without rewriting it
 
-
-
-
-
 */
 
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 //tells Express to automatically parse incoming JSON request bodies (you'll need this for login, registration, etc.)
 
 app.get('/health', (req, res) => {
