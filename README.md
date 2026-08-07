@@ -37,10 +37,14 @@ A unified emergency network where:
 
 ## 🛠 Tech Stack
 
-| Domain                 | Technology           |
-| :--------------------- | :------------------- |
-| **Frontend**           | React                |
-| **Backend**            | Express.js (Node.js) |
-| **Database**           | PostgreSQL           |
-| **Mapping & Location** | Google Maps Platform |
-| **AI Engine**          | Google Gemini API    |
+| Domain             | Technology           |
+| :----------------- | :------------------- |
+| **Frontend**       | React                |
+| **Backend**        | Express.js (Node.js) |
+| **Database**       | PostgreSQL           |
+| **Authentication** | JWT + bcrypt         |
+
+### Planned
+
+- Mapping & Location: Leaflet + OpenStreetMap _(or Google Maps Platform — TBD)_
+- AI Engine: Google Gemini API _(for urgency analysis)_
