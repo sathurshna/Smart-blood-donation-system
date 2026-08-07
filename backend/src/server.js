@@ -1,5 +1,5 @@
 require('dotenv').config();
-const pool = require('./src/config/db');
+const pool = require('./config/db');
 const express = require('express'); //loads the Express library so we can use it
 const app = express();
 
@@ -15,7 +15,7 @@ const app = express();
 ├── src/
 │   ├── config/          → database connection setup
 │   ├── routes/          → auth.routes.js → defines URLs like /api/auth/login
-│   ├── controllers/     → auth.controller.js → handles request/response
+│   ├── controllers/     → auth.controller.js → handles HTTP request/response
 │   ├── services/        → auth.service.js → business logic (hashing, token creation)
 │   ├── middleware/      → auth.middleware.js → verifies JWT on protected routes
 ├── server.js
