@@ -34,13 +34,11 @@ services contain the actual logic (hash a password, check credentials, generate 
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
-<<<<<<< HEAD
+
 app.use('/api/donors', donorRoutes);
-=======
 app.use('/api/hospitals', hospitalRoutes);
 app.use('/api/requests', requestRoutes);
 
->>>>>>> 9aea81d (feat(hospitals): add hospital profile and blood request CRUD endpoints)
 //tells Express to automatically parse incoming JSON request bodies (you'll need this for login, registration, etc.)
 
 app.get('/health', (req, res) => {
