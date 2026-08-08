@@ -2,6 +2,9 @@ require('dotenv').config();
 const donorRoutes = require('./routes/donor.routes');
 const authRoutes = require('./routes/auth.routes');
 const pool = require('./config/db');
+const hospitalRoutes = require('./routes/hospital.routes');
+const requestRoutes = require('./routes/request.routes');
+
 const express = require('express'); //loads the Express library so we can use it
 const app = express();
 
@@ -31,7 +34,13 @@ services contain the actual logic (hash a password, check credentials, generate 
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+<<<<<<< HEAD
 app.use('/api/donors', donorRoutes);
+=======
+app.use('/api/hospitals', hospitalRoutes);
+app.use('/api/requests', requestRoutes);
+
+>>>>>>> 9aea81d (feat(hospitals): add hospital profile and blood request CRUD endpoints)
 //tells Express to automatically parse incoming JSON request bodies (you'll need this for login, registration, etc.)
 
 app.get('/health', (req, res) => {
