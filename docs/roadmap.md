@@ -1,57 +1,100 @@
-# Project Roadmap
+# Project Roadmap — Smart Blood Donation Coordination System
 
-This roadmap uses the allocated issue durations from the backlog and turns them into a dated delivery table.
+**Last updated:** August 8, 2026
+**Actual tech stack:** React (web) · React Native + Expo (mobile) · Express.js (Node.js) · PostgreSQL · JWT + bcrypt · Git/GitHub
 
-## Roadmap Table
+> Note: this roadmap replaces earlier drafts that referenced FastAPI/Python and TypeScript.
+> The confirmed backend is **Node.js + Express**, written in **plain JavaScript**.
+> FastAPI may be explored later as a *separate* learning exercise, not as a replacement.
 
-| Week   | Issue                                      | GitHub Issue | Duration | Start Date   | Deadline     | Deliverable                                                       |
-| ------ | ------------------------------------------ | ------------ | -------- | ------------ | ------------ | ----------------------------------------------------------------- |
-| Week 1 | Define product scope and roles             | #6           | 1 day    | Aug 3, 2026  | Aug 3, 2026  | Confirm user roles, workflow, and system boundaries               |
-| Week 1 | Harden database schema                     | #7           | 2 days   | Aug 4, 2026  | Aug 5, 2026  | Finalize schema constraints, indexes, and seed data               |
-| Week 1 | Set up backend structure                   | #8           | 1 day    | Aug 6, 2026  | Aug 6, 2026  | Establish routes, controllers, services, and middleware structure |
-| Week 2 | Implement authentication and authorization | #9           | 2 days   | Aug 10, 2026 | Aug 11, 2026 | Add register, login, hashing, and protected routes                |
-| Week 2 | Build donor profile and availability APIs  | #10          | 2 days   | Aug 12, 2026 | Aug 13, 2026 | Let donors update profile, location, and availability             |
-| Week 2 | Build hospital and request creation APIs   | #11          | 1 day    | Aug 14, 2026 | Aug 14, 2026 | Allow hospitals to create blood requests                          |
-| Week 3 | Implement request lifecycle management     | #12          | 2 days   | Aug 17, 2026 | Aug 18, 2026 | Support open, assigned, completed, and cancelled states           |
-| Week 3 | Implement donor matching logic             | #13          | 2 days   | Aug 19, 2026 | Aug 20, 2026 | Match eligible donors by blood group, availability, and distance  |
-| Week 3 | Implement donation tracking                | #14          | 1 day    | Aug 21, 2026 | Aug 21, 2026 | Track accepted and completed donations                            |
-| Week 3 | Add testing, deployment, and documentation | #15          | 2 days   | Aug 22, 2026 | Aug 23, 2026 | Add tests, deployment notes, and updated README instructions      |
+---
 
-## Weekly Milestones
+## Phase 1 — Backend Foundation ✅ Complete
 
-| Week   | Date Range       | Milestone                                             |
-| ------ | ---------------- | ----------------------------------------------------- |
-| Week 1 | Aug 3 to Aug 6   | Foundation work completed                             |
-| Week 2 | Aug 10 to Aug 14 | Core API layer completed                              |
-| Week 3 | Aug 17 to Aug 23 | Matching, tracking, and release preparation completed |
+| Issue | Title | Status |
+|-------|-------|--------|
+| #6 | Define product scope and roles | ✅ Done |
+| #7 | Harden database schema (constraints, indexes, seed data) | ✅ Done |
+| #8 | Set up backend structure (routes/controllers/services/middleware) | ✅ Done |
+| #9 | Implement authentication and authorization (JWT + bcrypt) | ✅ Done |
 
-## Preferred Deployment Flow Roadmap
+**Deliverable:** A running Express server connected to PostgreSQL, with a hardened schema and working register/login.
 
-This table maps the new flow issues to concrete calendar deadlines.
+---
 
-| Phase    | Issue                                                                | GitHub Issue | Duration | Start Date   | Deadline     | Deliverable                                                    |
-| -------- | -------------------------------------------------------------------- | ------------ | -------- | ------------ | ------------ | -------------------------------------------------------------- |
-| Phase 1  | Define environment contracts for dev and prod                        | #23          | 1 day    | Aug 24, 2026 | Aug 24, 2026 | Finalized env variable contract for development and production |
-| Phase 2  | Dockerize FastAPI application for development                        | #24          | 1 day    | Aug 25, 2026 | Aug 25, 2026 | Working Dockerfile and containerized FastAPI startup           |
-| Phase 3  | Add docker-compose for Supabase-first with local PostgreSQL fallback | #25          | 1 day    | Aug 26, 2026 | Aug 26, 2026 | One-command local startup with Supabase and local fallback     |
-| Phase 4  | Add migrations and startup DB reliability checks                     | #26          | 1 day    | Aug 27, 2026 | Aug 27, 2026 | Migration baseline and startup connectivity verification       |
-| Phase 5  | Build CI pipeline for lint, tests, and Docker image publishing       | #27          | 1 day    | Aug 28, 2026 | Aug 28, 2026 | Automated CI checks and publish-ready container image          |
-| Phase 6A | Deploy Dockerized FastAPI to AWS                                     | #28          | 2 days   | Aug 31, 2026 | Sep 1, 2026  | Live AWS deployment connected to Supabase                      |
-| Phase 6B | Deploy Dockerized FastAPI to Azure                                   | #29          | 2 days   | Sep 2, 2026  | Sep 3, 2026  | Live Azure deployment connected to Supabase                    |
-| Phase 7  | Production hardening (logging, monitoring, rollback)                 | #30          | 1 day    | Sep 4, 2026  | Sep 4, 2026  | Monitoring and rollback runbook ready                          |
-| Phase 8  | Final release checklist and go-live validation                       | #31          | 0.5 day  | Sep 7, 2026  | Sep 7, 2026  | Signed-off go-live checklist                                   |
+## Phase 2 — Core APIs 🔶 In Progress
 
-## Preferred Flow Milestones
+| Issue | Title | Status |
+|-------|-------|--------|
+| #10 | Build donor profile and availability APIs | ✅ Done |
+| #11 | Build hospital and request creation APIs | 🔶 Built & tested — pending merge |
+| #12 | Implement request lifecycle management (status state machine) | ✅ Done |
+| #13 | Implement donor matching logic (blood group, availability, distance) | ⬜ Not started |
+| #14 | Implement donation tracking (accept/complete history) | ⬜ Not started |
+| #15 | Add basic API tests, deployment notes, README update | ⬜ Not started |
 
-| Milestone                                         | Date         | Outcome                      |
-| ------------------------------------------------- | ------------ | ---------------------------- |
-| Containerized development baseline complete       | Aug 26, 2026 | Phases 1 to 3 complete       |
-| CI and deployment foundations complete            | Sep 1, 2026  | Phases 4, 5, and 6A complete |
-| Multi-cloud readiness and go-live checks complete | Sep 7, 2026  | Phases 6B to 8 complete      |
+**Deliverable:** A complete, testable REST API covering the full donor–hospital–request–donation workflow.
 
-## Notes
+---
 
-- The roadmap assumes work is done on business days with a short buffer between weeks.
-- If the team works sequentially only, the deadlines stay the same but the calendar can shift by one day per task.
-- Existing open GitHub issues #3 to #5 are earlier setup tasks and can be treated as prerequisites.
-- New flow issues #23 to #31 are scheduled after the original 3-week core delivery sequence.
+## Phase 3 — Simple Frontend (NEW — not previously planned)
+
+Goal: build the minimum UI needed to actually use every API from Phase 1–2. Kept intentionally simple — polish comes later, after deployment.
+
+### Web (React) — Hospital & Admin
+
+| Issue | Title | Depends on |
+|-------|-------|------------|
+| #35 | Web: Auth screens (register/login) | #9 |
+| #36 | Web: Hospital dashboard — create & view requests | #11, #12 |
+| #37 | Web: Request status controls (mark matched/completed/cancelled) | #12 |
+| #39 | Web: Admin dashboard — basic stats (counts only) | #10, #11 |
+
+### Mobile (React Native + Expo) — Donor
+
+| Issue | Title | Depends on |
+|-------|-------|------------|
+| #38 | Mobile: Auth screens (register/login) | #9 |
+| #40 | Mobile: Donor profile screen (edit details, toggle availability) | #10 |
+| #41 | Mobile: Nearby/matching requests list + accept action | #13, #14 |
+
+**Deliverable:** A functional, unstyled-but-working web app and mobile app that exercise every backend endpoint.
+
+---
+
+## Phase 4 — Deployment
+
+Rewritten for the **actual stack (Express/Node)** — earlier drafts of this phase referenced FastAPI/Python and need this correction applied when work starts.
+
+| Issue | Title | Notes |
+|-------|-------|-------|
+| #23 | Define environment contracts for dev and prod | `.env.example` with DATABASE_URL, JWT_SECRET, PORT, CORS_ORIGINS |
+| #24 | Dockerize the Express application | Node slim base image, not Python |
+| #25 | docker-compose: Supabase-first with local Postgres fallback | |
+| #26 | Add DB migration approach + startup connectivity check | |
+| #27 | Build CI pipeline (lint, tests, Docker image publish) | |
+| #28 | Deploy Dockerized Express app to AWS or Azure | Pick one cloud, not both, for MVP |
+| #29 | Production hardening (logging, monitoring, rollback notes) | |
+| #30 | Final release checklist and go-live validation | |
+
+**Deliverable:** A live, publicly reachable deployment of the backend, connected to Supabase, with web/mobile pointing at it.
+
+---
+
+## Phase 5 — Polish (Post-Deployment)
+
+Only after the app is live and demoable. Examples, not committed issues yet:
+- Visual design pass (styling, responsive layout, branding)
+- Map integration (Leaflet/OpenStreetMap or Google Maps) for request/donor locations
+- AI urgency analysis (Gemini) on request creation
+- Push notifications for matched donors
+- Admin user management
+
+---
+
+## Guiding Principles
+
+1. **Backend before frontend** — every screen consumes an already-tested API; no guessing at data shapes.
+2. **Simple before styled** — Phase 3 frontend is functional only; visual polish is explicitly deferred to Phase 5.
+3. **One deployment target for MVP** — pick AWS *or* Azure first; don't build both in parallel.
+4. **Stack stays Express/JS** — any FastAPI work happens as a separate, clearly-labeled learning branch/repo, not inside this deployment plan.
