@@ -1,4 +1,5 @@
 require('dotenv').config();
+const donorRoutes = require('./routes/donor.routes');
 const authRoutes = require('./routes/auth.routes');
 const pool = require('./config/db');
 const express = require('express'); //loads the Express library so we can use it
@@ -17,7 +18,7 @@ const app = express();
 │   ├── config/          → database connection setup
 │   ├── routes/          → auth.routes.js → defines URLs like /api/auth/login
 │   ├── controllers/     → auth.controller.js → handles HTTP request/response
-│   ├── services/        → auth.service.js → business logic (hashing, token creation)
+│   ├── services/        → auth.service.js → business logic (hashing, token creation) - talks to the database
 │   ├── middleware/      → auth.middleware.js → verifies JWT on protected routes
 ├── server.js
 ├── package.json
@@ -30,6 +31,7 @@ services contain the actual logic (hash a password, check credentials, generate 
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/donors', donorRoutes);
 //tells Express to automatically parse incoming JSON request bodies (you'll need this for login, registration, etc.)
 
 app.get('/health', (req, res) => {
