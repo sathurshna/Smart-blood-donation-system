@@ -1,4 +1,4 @@
-const { createRequest, getHospitalRequests, completeRequest } = require('../services/request.service');
+const { createRequest, getHospitalRequests, transitionRequestStatus } = require('../services/request.service');
 
 async function create(req, res) {
   try {
@@ -22,13 +22,17 @@ async function getMine(req, res) {
   }
 }
 
-async function complete(req, res) {
+async function updateStatus(req, res) {
   try {
-    const request = await completeRequest(req.user.userId, req.params.id);
+    const { status } = req.body;
+    if (!status) {
+      return res.status(400).json({ error: 'status is required' });
+    }
+    const request = await transitionRequestStatus(req.user.userId, req.params.id, status);
     res.json(request);
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(400).json({ error: err.message });
   }
 }
 
-module.exports = { create, getMine, complete };
+module.exports = { create, getMine, updateStatus };
