@@ -27,9 +27,9 @@
 | Issue | Title | Status |
 |-------|-------|--------|
 | #10 | Build donor profile and availability APIs | ✅ Done |
-| #11 | Build hospital and request creation APIs | 🔶 Built & tested — pending merge |
+| #11 | Build hospital and request creation APIs | ✅ Done |
 | #12 | Implement request lifecycle management (status state machine) | ✅ Done |
-| #13 | Implement donor matching logic (blood group, availability, distance) | ⬜ Not started |
+| #13 | Implement donor matching logic (blood group, availability, distance) | ✅ Done |
 | #14 | Implement donation tracking (accept/complete history) | ⬜ Not started |
 | #15 | Add basic API tests, deployment notes, README update | ⬜ Not started |
 
