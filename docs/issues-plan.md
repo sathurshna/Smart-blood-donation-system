@@ -79,7 +79,7 @@ This backlog mirrors [roadmap.md](./roadmap.md) with detailed scope, time estima
 ### Issue #11: Build hospital and request creation APIs
 
 - **Time:** 1 day
-- **Status:** 🔶 Built & tested — pending merge
+- **Status:** ✅ Done
 - **Goal:** Allow hospitals to create blood requests.
 - **Scope:**
   - GET/PUT `/api/hospitals/profile`
@@ -103,7 +103,7 @@ This backlog mirrors [roadmap.md](./roadmap.md) with detailed scope, time estima
 ### Issue #13: Implement donor matching logic
 
 - **Time:** 2 days
-- **Status:** ⬜ Not started
+- **Status:** ✅ Done
 - **Depends on:** #10, #11, #12
 - **Goal:** Find eligible donors for a request.
 - **Scope:**
