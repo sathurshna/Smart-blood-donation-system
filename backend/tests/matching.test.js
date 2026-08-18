@@ -15,6 +15,7 @@ async function runAllTests() {
   console.log('       RUNNING ISSUE #13 DONOR MATCHING TESTS       ');
   console.log('====================================================\n');
 
+  let server;
   try {
     // -----------------------------------------------------------------
     // 1. Utilities Unit Testing
@@ -158,7 +159,7 @@ async function runAllTests() {
     app.use('/api/hospitals', hospitalRoutes);
     app.use('/api/requests', requestRoutes);
 
-    const server = app.listen(0);
+    server = app.listen(0);
     const port = server.address().port;
     const baseUrl = `http://localhost:${port}`;
 
@@ -193,18 +194,21 @@ async function runAllTests() {
     if (nearbyAsHosp.status !== 403) throw new Error(`Expected 403 Forbidden, got ${nearbyAsHosp.status}`);
     console.log('  ✅ GET /api/requests/nearby (Hospital) -> 403 Forbidden');
 
-    server.close();
-    await pool.query("DELETE FROM users WHERE email LIKE 'match_test_%'");
-    console.log('\n====================================================');
-    console.log('       ALL ISSUE #13 TESTS PASSED SUCCESSFULLY      ');
-    console.log('====================================================\n');
-
-  } catch (err) {
-    console.error('❌ Test failed:', err);
-    process.exit(1);
   } finally {
-    await pool.end();
+      if (server) {
+        server.close();
+      }
   }
 }
 
-runAllTests();
+if (require.main === module) {
+  runAllTests()
+    .then(() => pool.end())
+    .catch((err) => {
+      console.error('❌ Test failed:', err);
+      pool.end();
+      process.exit(1);
+    });
+}
+
+module.exports = runAllTests;

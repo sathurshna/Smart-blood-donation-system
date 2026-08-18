@@ -134,7 +134,7 @@ This backlog mirrors [roadmap.md](./roadmap.md) with detailed scope, time estima
 ### Issue #15: Add basic API tests, deployment notes, README update
 
 - **Time:** 2 days
-- **Status:** ⬜ Not started
+- **Status:** ✅ Done
 - **Depends on:** #10–#14
 - **Goal:** Prepare the API layer for handoff to frontend and deployment.
 - **Scope:**

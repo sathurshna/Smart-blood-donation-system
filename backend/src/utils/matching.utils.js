@@ -35,6 +35,7 @@ const MIN_DONATION_INTERVAL_DAYS = 56;
  * @param {number|null} lon2 Longitude of point 2
  * @returns {number|null} Distance in kilometers rounded to 2 decimal places, or null if coordinates are missing
  */
+
 //It calculates the distance between two locations.
 function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   if (lat1 == null || lon1 == null || lat2 == null || lon2 == null) {
@@ -61,10 +62,12 @@ function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   const toRad = (deg) => (deg * Math.PI) / 180;
   const R = 6371; // Earth's mean radius in kilometers
 
+
   const dLat = toRad(p2Lat - p1Lat);
   const dLon = toRad(p2Lon - p1Lon);
   const rLat1 = toRad(p1Lat);
   const rLat2 = toRad(p2Lat);
+
 
   //The Haversine formula calculates the great-circle distance between two points on the Earth's surface using latitude and longitude.
   const a =
@@ -75,19 +78,6 @@ function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   return Math.round(R * c * 100) / 100;
 }
 
-/**
- * Match Score = compatibility + eligibility + availability + proximity + urgency
- * Total maximum score = 100 points
- *
- * @param {Object} params
- * @param {string} params.donorBloodGroup
- * @param {string} params.recipientBloodGroup
- * @param {boolean} params.available
- * @param {string|Date|null} params.lastDonationDate
- * @param {number|null} params.distanceKm
- * @param {string} params.urgency - 'critical' | 'high' | 'medium' | 'low'
- * @returns {{ score: number, breakdown: { compatibility: number, eligibility: number, availability: number, proximity: number, urgency: number } }}
- */
 function calculateMatchScore({
   donorBloodGroup,
   recipientBloodGroup,
@@ -96,65 +86,81 @@ function calculateMatchScore({
   distanceKm,
   urgency,
 }) {
-  // 1. Compatibility (max 30 pts): Exact blood type match = 30, compatible blood type = 25
-  let compatibility = 0;
-  const compatibleDonors = BLOOD_COMPATIBILITY_RECIPIENT[recipientBloodGroup] || [];
-  if (donorBloodGroup === recipientBloodGroup) {
-    compatibility = 30; // Exact match
-  } else if (compatibleDonors.includes(donorBloodGroup)) {
-    compatibility = 25; // Medically compatible
+  let compatibilityScore = 0;
+  let eligibilityScore = 0;
+  let availabilityScore = 0;
+  let proximityScore = 0;
+  let urgencyScore = 0;
+
+  // 1. Blood compatibility — 30 points
+  const compatibleDonors =
+    BLOOD_COMPATIBILITY_RECIPIENT[recipientBloodGroup] || [];
+
+  if (compatibleDonors.includes(donorBloodGroup)) {
+    compatibilityScore = 30;
   }
 
-  // 2. Eligibility (max 15 pts): Eligible if >= 56 days since last donation or never donated
-  let eligibility = 0;
-  if (!lastDonationDate) {
-    eligibility = 15;
-  } else {
-    const lastDate = new Date(lastDonationDate);
-    const diffDays = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
-    if (diffDays >= MIN_DONATION_INTERVAL_DAYS) {
-      eligibility = 15;
+  // 2. Donation eligibility — 20 points
+  let eligible = true;
+
+  if (lastDonationDate) {
+    const lastDonation = new Date(lastDonationDate);
+    const today = new Date();
+
+    const differenceMs = today - lastDonation;
+    const differenceDays = differenceMs / (1000 * 60 * 60 * 24);
+
+    if (differenceDays < MIN_DONATION_INTERVAL_DAYS) {
+      eligible = false;
     }
   }
 
-  // 3. Availability (max 10 pts): Donor marked as active/available
-  const availability = available ? 10 : 0;
+  if (eligible) {
+    eligibilityScore = 20;
+  }
 
-  // 4. Proximity (max 25 pts): Higher score for closer donors, decaying over distance
-  let proximity = 0;
-  if (distanceKm !== null && distanceKm !== undefined && !isNaN(distanceKm)) {
+  // 3. Availability — 20 points
+  if (available === true) {
+    availabilityScore = 20;
+  }
+
+  // 4. Proximity — 20 points
+  if (distanceKm !== null) {
     if (distanceKm <= 5) {
-      proximity = 25;
+      proximityScore = 20;
+    } else if (distanceKm <= 10) {
+      proximityScore = 15;
+    } else if (distanceKm <= 25) {
+      proximityScore = 10;
     } else if (distanceKm <= 50) {
-      proximity = Math.round((25 - ((distanceKm - 5) / 45) * 20) * 10) / 10;
-    } else {
-      proximity = 2; // > 50km
+      proximityScore = 5;
     }
-  } else {
-    proximity = 5; // Default when location is unknown
   }
 
-  // 5. Urgency (max 20 pts): Higher urgency receives higher priority
+  // 5. Urgency — 10 points
   const urgencyScores = {
-    critical: 20,
-    high: 15,
-    medium: 10,
-    low: 5,
+    critical: 10,
+    high: 8,
+    medium: 5,
+    low: 2,
   };
-  const urgencyScore = urgencyScores[urgency?.toLowerCase()] || 10;
 
-  // Total Match Score = compatibility + eligibility + availability + proximity + urgency
-  const totalScore = Math.round(
-    compatibility + eligibility + availability + proximity + urgencyScore
-  );
+  urgencyScore = urgencyScores[urgency] || 0;
+
+  const score =
+    compatibilityScore +
+    eligibilityScore +
+    availabilityScore +
+    proximityScore +
+    urgencyScore;
 
   return {
-    score: totalScore,
+    score,
     breakdown: {
-      compatibility,
-      eligibility,
-      availability,
-      proximity,
+      compatibility: compatibilityScore,
+      eligibility: eligibilityScore,
+      availability: availabilityScore,
+      proximity: proximityScore,
       urgency: urgencyScore,
     },
   };

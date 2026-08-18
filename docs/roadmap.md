@@ -31,7 +31,7 @@
 | #12 | Implement request lifecycle management (status state machine) | ✅ Done |
 | #13 | Implement donor matching logic (blood group, availability, distance) | ✅ Done |
 | #14 | Implement donation tracking (accept/complete history) | ⬜ Not started |
-| #15 | Add basic API tests, deployment notes, README update | ⬜ Not started |
+| #15 | Add basic API tests, deployment notes, README update | ✅ Done |
 
 **Deliverable:** A complete, testable REST API covering the full donor–hospital–request–donation workflow.
 
