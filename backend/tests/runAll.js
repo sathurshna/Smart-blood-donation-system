@@ -5,6 +5,7 @@ const runDonorTests = require('./donor.test');
 const runHospitalTests = require('./hospital.test');
 const runRequestTests = require('./request.test');
 const runMatchingTests = require('./matching.test');
+const runDonationTests = require('./donation.test');
 
 async function runMasterTestSuite() {
   console.log('╔═══════════════════════════════════════════════════════╗');
@@ -17,6 +18,7 @@ async function runMasterTestSuite() {
     { name: 'Hospital Profile API', runner: runHospitalTests },
     { name: 'Blood Request & Lifecycle API', runner: runRequestTests },
     { name: 'Donor Matching & Proximity Scoring API', runner: runMatchingTests },
+    { name: 'Donation Tracking (Accept / Complete History)', runner: runDonationTests },
   ];
 
   const results = [];
@@ -51,7 +53,7 @@ async function runMasterTestSuite() {
     await pool.end();
     process.exit(1);
   } else {
-    console.log('🎉 ALL 5 INTEGRATION TEST SUITES PASSED CLEANLY!\n');
+    console.log('🎉 ALL 6 INTEGRATION TEST SUITES PASSED CLEANLY!\n');
     await pool.end();
     process.exit(0);
   }
