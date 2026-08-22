@@ -22,7 +22,7 @@
 
 ---
 
-## Phase 2 — Core APIs 🔶 In Progress
+## Phase 2 — Core APIs ✅ Complete
 
 | Issue | Title | Status |
 |-------|-------|--------|
@@ -30,7 +30,7 @@
 | #11 | Build hospital and request creation APIs | ✅ Done |
 | #12 | Implement request lifecycle management (status state machine) | ✅ Done |
 | #13 | Implement donor matching logic (blood group, availability, distance) | ✅ Done |
-| #14 | Implement donation tracking (accept/complete history) | ⬜ Not started |
+| #14 | Implement donation tracking (accept/complete history) | ✅ Done |
 | #15 | Add basic API tests, deployment notes, README update | ✅ Done |
 
 **Deliverable:** A complete, testable REST API covering the full donor–hospital–request–donation workflow.

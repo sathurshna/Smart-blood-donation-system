@@ -4,6 +4,7 @@ const authRoutes = require('./routes/auth.routes');
 const pool = require('./config/db');
 const hospitalRoutes = require('./routes/hospital.routes');
 const requestRoutes = require('./routes/request.routes');
+const donationRoutes = require('./routes/donation.routes');
 
 const express = require('express'); //loads the Express library so we can use it
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/donors', donorRoutes);
 app.use('/api/hospitals', hospitalRoutes);
 app.use('/api/requests', requestRoutes);
+app.use('/api/donations', donationRoutes);
 
 //tells Express to automatically parse incoming JSON request bodies (you'll need this for login, registration, etc.)
 
